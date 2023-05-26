@@ -9,3 +9,8 @@ val ColorS1 = Color(0xFFE83C69)
 val ColorS2 = Color(0x78E8269A)
 
 val ColorT1 = Color(0x78425CAA)
+
+val ColorMacho = Color(0xFF3580C2)
+val ColorHembra = Color(0xFFD5177C)
+val ColorProfesor = Color(0xFFFF5722)
+val ColorAlumno = Color(0xFF8BC34A)

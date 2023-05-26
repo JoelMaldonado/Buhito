@@ -37,6 +37,7 @@ import com.jjmf.elementaryschool.ui.theme.ColorS1
 
 @Composable
 fun LoginScreen(
+    toMenuDirector:()->Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     Box(
@@ -115,7 +116,7 @@ fun LoginScreen(
                 )
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = {},
+                    onClick = toMenuDirector,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = ColorS1
                     )

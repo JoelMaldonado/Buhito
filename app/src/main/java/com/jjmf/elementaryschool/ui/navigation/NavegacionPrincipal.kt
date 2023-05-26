@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.jjmf.elementaryschool.ui.features.Director.AgregarUsuario.AgregarUsuarioScreen
+import com.jjmf.elementaryschool.ui.features.Director.CursoMaestro.CursoMaestroScreen
+import com.jjmf.elementaryschool.ui.features.Director.UsuarioMaestro.UsuarioMaestroScreen
 import com.jjmf.elementaryschool.ui.features.Login.LoginScreen
 import com.jjmf.elementaryschool.ui.features.Menu.MenuScreen
 
@@ -17,11 +20,42 @@ fun NavegacionPrincipal() {
     ){
 
         composable(Rutas.Login.url){
-            LoginScreen()
+            LoginScreen(
+                toMenuDirector = {
+                    navController.navigate(Rutas.Menu.url)
+                }
+            )
         }
 
         composable(Rutas.Menu.url){
-            MenuScreen()
+            MenuScreen(
+                toUsuario = {
+                    navController.navigate(Rutas.UsuarioMaestro.url)
+                },
+                toCurso = {
+                    navController.navigate(Rutas.CursoMaestro.url)
+                }
+            )
+        }
+
+        composable(Rutas.UsuarioMaestro.url){
+            UsuarioMaestroScreen(
+                toAgregarUsuario = {
+                    navController.navigate(Rutas.AgregarUsuario.url)
+                }
+            )
+        }
+
+        composable(Rutas.AgregarUsuario.url){
+            AgregarUsuarioScreen(
+                back = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(Rutas.CursoMaestro.url){
+            CursoMaestroScreen()
         }
 
     }
