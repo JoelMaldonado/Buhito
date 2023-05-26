@@ -1,160 +1,189 @@
 package com.jjmf.elementaryschool.ui.features.Director.AgregarUsuario
 
+import android.util.Patterns
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Female
-import androidx.compose.material.icons.filled.Male
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.jjmf.elementaryschool.R
 import com.jjmf.elementaryschool.ui.components.CajaTexto
+import com.jjmf.elementaryschool.ui.components.Top
+import com.jjmf.elementaryschool.ui.features.Director.AgregarUsuario.components.SwitchElegir
 import com.jjmf.elementaryschool.ui.theme.ColorAlumno
 import com.jjmf.elementaryschool.ui.theme.ColorHembra
 import com.jjmf.elementaryschool.ui.theme.ColorMacho
+import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorProfesor
+import com.jjmf.elementaryschool.ui.theme.ColorS1
+import com.jjmf.elementaryschool.util.Recursos
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgregarUsuarioScreen(
     back: () -> Unit,
     viewModel: AgregarUsuarioViewModel = hiltViewModel(),
 ) {
 
+    val focus = LocalFocusManager.current
+
+    LaunchedEffect(key1 = Unit){
+        viewModel.iconoUsuarioMain = Recursos.getMaestro()
+    }
+
+    if (viewModel.back){
+        LaunchedEffect(key1 = Unit){
+            back()
+        }
+    }
+
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        TopAppBar(
-            title = {
-                Text(text = "Añadir Usuario", fontWeight = FontWeight.Medium, color = Color.White)
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            ),
-            navigationIcon = {
-                IconButton(onClick = back) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null, tint = Color.White)
-                }
-            }
+        Top(
+            back = back,
+            titulo = "Añadir Usuario"
         )
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(15.dp),
-            verticalArrangement = Arrangement.spacedBy(25.dp),
+                .background(ColorP1)
+                .clip(RoundedCornerShape(topEnd = 30.dp))
+                .background(Color.White)
+                .padding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(30.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+
+                CajaTexto(
+                    modifier = Modifier.weight(1f),
+                    valor = viewModel.correo,
+                    newValor = {
+                        viewModel.correo = it
+                    },
+                    label = "Correo electronico",
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next,
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focus.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+
+                AsyncImage(
+                    model = viewModel.iconoUsuarioMain,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(CircleShape)
+                )
+            }
+
             CajaTexto(
+                modifier = Modifier.fillMaxWidth(),
                 valor = viewModel.nombre,
                 newValor = {
                     viewModel.nombre = it
                 },
-                label = "Nombres y apellidos"
+                label = "Nombres",
+                imeAction = ImeAction.Next,
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focus.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             CajaTexto(
-                valor = viewModel.correo,
+                valor = viewModel.apellido,
                 newValor = {
-                    viewModel.correo = it
+                    viewModel.apellido = it
                 },
-                label = "Correo electronico"
+                label = "Apellidos",
+                imeAction = ImeAction.Next,
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focus.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Icon(
-                    modifier = Modifier.size(50.dp),
-                    painter = painterResource(id = (R.drawable.ic_profesor)),
-                    contentDescription = null,
-                    tint = ColorProfesor
+            CajaTexto(
+                valor = viewModel.celular,
+                newValor = {
+                    viewModel.celular = it
+                },
+                label = "Celular",
+                keyboardType = KeyboardType.Phone,
+                imeAction = ImeAction.Done,
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focus.clearFocus()
+                    }
                 )
-                Switch(
-                    checked = viewModel.tipo,
-                    onCheckedChange = {
-                        viewModel.tipo = it
-                    },
-                    colors = SwitchDefaults.colors(
-                        checkedTrackColor = ColorAlumno.copy(0.5f),
-                        checkedThumbColor = ColorAlumno,
-                        uncheckedTrackColor = ColorProfesor.copy(0.5f),
-                        uncheckedThumbColor = ColorProfesor,
-                        uncheckedBorderColor = Color.Transparent,
-                        checkedBorderColor = Color.Transparent
-                    )
-                )
-                Icon(
-                    modifier = Modifier.size(50.dp),
-                    painter = painterResource(id = (R.drawable.ic_alumno)),
-                    contentDescription = null,
-                    tint = ColorAlumno
-                )
-
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Icon(
-                    modifier = Modifier.size(50.dp),
-                    imageVector = Icons.Default.Male,
-                    contentDescription = null,
-                    tint = ColorMacho
-                )
-                Switch(
-                    checked = viewModel.genero,
-                    onCheckedChange = {
-                        viewModel.genero = it
-                    },
-                    colors = SwitchDefaults.colors(
-                        checkedTrackColor = ColorHembra.copy(0.5f),
-                        checkedThumbColor = ColorHembra,
-                        uncheckedTrackColor = ColorMacho.copy(0.5f),
-                        uncheckedThumbColor = ColorMacho,
-                        uncheckedBorderColor = Color.Transparent,
-                        checkedBorderColor = Color.Transparent
-                    )
-                )
-                Icon(
-                    modifier = Modifier.size(50.dp),
-                    imageVector = Icons.Default.Female,
-                    contentDescription = null,
-                    tint = ColorHembra
-                )
-
-            }
-            Button(
-                onClick = {
-
+            )
+            SwitchElegir(
+                opcion1 = R.drawable.ic_profesor,
+                color1 = ColorProfesor,
+                opcion2 = R.drawable.ic_alumno,
+                color2 = ColorAlumno,
+                bool = viewModel.tipo,
+                newBool = {
+                    viewModel.tipo = it
+                    viewModel.validarIcono()
                 }
+            )
+            SwitchElegir(
+                opcion1 = R.drawable.ic_hombre,
+                color1 = ColorMacho,
+                opcion2 = R.drawable.ic_mujer,
+                color2 = ColorHembra,
+                bool = viewModel.genero,
+                newBool = {
+                    viewModel.genero = it
+                    viewModel.validarIcono()
+                }
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = viewModel::insertarUsuario,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = ColorS1
+                ),
+                enabled = Patterns.EMAIL_ADDRESS.matcher(viewModel.correo).matches()
             ) {
-                Text(text = "Guardar")
+                Text(text = "Guardar", fontSize = 18.sp)
             }
         }
     }

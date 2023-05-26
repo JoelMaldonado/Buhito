@@ -6,4 +6,5 @@ sealed class Rutas(val url: String) {
     object UsuarioMaestro : Rutas(url = "usuariomaestro")
     object AgregarUsuario : Rutas(url = "agregarusuario")
     object CursoMaestro : Rutas(url = "cursomaestro")
+    object AgregaCurso : Rutas(url = "agregarcurso")
 }

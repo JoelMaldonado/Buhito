@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,9 +18,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,31 +41,35 @@ import com.jjmf.elementaryschool.ui.theme.ColorS1
 
 @Composable
 fun LoginScreen(
-    toMenuDirector:()->Unit,
+    toMenuDirector: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(ColorP1)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_atomo),
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
-        )
-        Column(
-            modifier = Modifier.fillMaxWidth()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .clip(RoundedCornerShape(bottomStart = 50.dp))
+                .background(ColorP1)
+                .weight(1f)
         ) {
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_atomo),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth
+            )
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                    .fillMaxSize()
+                    .padding(vertical = 50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(80.dp))
 
                 Icon(
                     painter = painterResource(id = R.drawable.ic_buho),
@@ -79,7 +87,7 @@ fun LoginScreen(
                     fontSize = 26.sp
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.weight(1f))
 
                 Text(
                     text = "Log In",
@@ -88,24 +96,26 @@ fun LoginScreen(
                     fontSize = 30.sp
                 )
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .clip(RoundedCornerShape(topEnd = 50.dp))
-                    .background(Color.White)
-                    .padding(30.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceAround
-            ) {
-                CajaLogin(
-                    titulo = "Correo",
-                    label = "correo@example.com",
-                    valor = viewModel.correo,
-                    newValor = {
-                        viewModel.correo = it
-                    }
-                )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .clip(RoundedCornerShape(topEnd = 50.dp))
+                .background(Color.White)
+                .padding(30.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround
+        ) {
+            CajaLogin(
+                titulo = "Correo",
+                label = "correo@example.com",
+                valor = viewModel.correo,
+                newValor = {
+                    viewModel.correo = it
+                }
+            )
+            Column {
                 CajaLogin(
                     titulo = "Contraseña",
                     label = "**********",
@@ -114,39 +124,56 @@ fun LoginScreen(
                         viewModel.clave = it
                     }
                 )
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = toMenuDirector,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = ColorS1
-                    )
-                ) {
-                    Text(text = "Ingresar", fontSize = 18.sp)
-                }
-
-                Text(
-                    text = "¿Olvidaste tu contraseña?",
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.clickable { },
-                    color = ColorS1
-                )
+                Recuerdame()
             }
-        }
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = toMenuDirector,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = ColorS1
+                )
+            ) {
+                Text(text = "Ingresar", fontSize = 18.sp)
+            }
 
+            Text(
+                text = "¿Olvidaste tu contraseña?",
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.clickable { },
+                color = ColorS1
+            )
+        }
+    }
+}
+
+@Composable
+fun Recuerdame() {
+    val bool = remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = bool.value,
+            onCheckedChange = {
+                bool.value = it
+            }
+        )
+        Text(text = "Recuerdame", fontSize = 14.sp)
     }
 }
 
 @Composable
 fun CajaLogin(
-    titulo:String,
-    label:String,
-    valor:String,
-    newValor:(String)->Unit
+    titulo: String,
+    label: String,
+    valor: String,
+    newValor: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(5.dp)
-    ){
+    ) {
         Text(
             text = titulo,
             fontWeight = FontWeight.Medium,
