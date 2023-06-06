@@ -28,6 +28,7 @@ import com.jjmf.elementaryschool.util.Recursos
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardProfesor(
+    foto:Int,
     nombre:String,
     descrip:String,
     click: () -> Unit
@@ -50,7 +51,7 @@ fun CardProfesor(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painterResource(id = Recursos.getMaestro()),
+                painterResource(id = foto),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp)
             )

@@ -36,7 +36,7 @@ class AgregarUsuarioViewModel @Inject constructor(
             try {
                 val usuario = Usuario(
                     correo = correo,
-                    clave = correo.substring(0,4) + "1234",
+                    clave = "12345678",
                     nombre = nombre,
                     apellido = apellido,
                     celular = celular,

@@ -9,7 +9,6 @@ import com.jjmf.elementaryschool.data.repository.UsuarioRepository
 import com.jjmf.elementaryschool.model.Usuario
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,7 +27,7 @@ class UsuarioMaestroViewModel @Inject constructor(
     fun getList() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repository.getList().collect() { list ->
+                repository.getListFlow().collect() { list ->
                     listUsuariosMain = list
                     listUsuarios = listUsuariosMain
                 }

@@ -16,7 +16,10 @@ interface UsuarioDao {
     suspend fun insert(usuario: Usuario)
 
     @Query("select * from tb_usuario")
-    fun getList(): Flow<List<Usuario>>
+    fun getListFlow(): Flow<List<Usuario>>
+
+    @Query("select * from tb_usuario")
+    fun getList(): List<Usuario>
 
     @Update
     suspend fun update(user: Usuario)

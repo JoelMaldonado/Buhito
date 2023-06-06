@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -48,6 +49,10 @@ fun AgregarCursoScreen(
 ) {
 
     val focus = LocalFocusManager.current
+
+    LaunchedEffect(key1 = Unit){
+        viewModel.getProfesores()
+    }
 
     if (viewModel.alertSeleccionarIcono) {
         AlertSeleccionarIconoCurso(
@@ -125,9 +130,10 @@ fun AgregarCursoScreen(
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                items(10) {
+                items(viewModel.listProfesores) {
                     CardProfesor(
-                        nombre = "Juan",
+                        foto = it.icono,
+                        nombre = it.nombre,
                         descrip = "Se unio el 26/05/2023",
                         click = {
 
@@ -135,6 +141,7 @@ fun AgregarCursoScreen(
                     )
                 }
             }
+
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {

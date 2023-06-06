@@ -7,7 +7,8 @@ import javax.inject.Inject
 
 interface UsuarioRepository {
     suspend fun insert(usuario: Usuario)
-    suspend fun getList() : Flow<List<Usuario>>
+    suspend fun getListFlow() : Flow<List<Usuario>>
+    suspend fun getList() : List<Usuario>
     suspend fun delete(usuario: Usuario)
 }
 
@@ -18,7 +19,11 @@ class UsuarioRepositoryImpl @Inject constructor(
         db.usuarioDao().insert(usuario)
     }
 
-    override suspend fun getList(): Flow<List<Usuario>> {
+    override suspend fun getListFlow(): Flow<List<Usuario>> {
+        return db.usuarioDao().getListFlow()
+    }
+
+    override suspend fun getList(): List<Usuario> {
         return db.usuarioDao().getList()
     }
 
