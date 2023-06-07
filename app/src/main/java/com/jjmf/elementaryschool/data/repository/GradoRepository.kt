@@ -7,26 +7,24 @@ import javax.inject.Inject
 
 interface GradoRepository {
 
-    suspend fun insert(curso: Grado)
-
-    suspend fun delete(curso: Grado)
-
-    suspend fun getList(): Flow<List<Grado>>
+    suspend fun insert(grado: Grado)
+    suspend fun delete(grado: Grado)
+    suspend fun getListFlow(): Flow<List<Grado>>
 }
 
-class GradoRespositoryImpl @Inject constructor(
+class GradoRepositoryImpl @Inject constructor(
     private val db: AppDataBase
 ) : GradoRepository {
-
-    override suspend fun insert(curso: Grado) {
-        db.gradoDao().insert(curso)
+    override suspend fun insert(grado: Grado) {
+        db.gradoDao().insert(grado)
     }
 
-    override suspend fun getList(): Flow<List<Grado>> {
+    override suspend fun delete(grado: Grado) {
+        db.gradoDao().delete(grado)
+    }
+
+    override suspend fun getListFlow(): Flow<List<Grado>> {
         return db.gradoDao().getList()
     }
 
-    override suspend fun delete(curso: Grado) {
-        db.gradoDao().delete(curso)
-    }
 }

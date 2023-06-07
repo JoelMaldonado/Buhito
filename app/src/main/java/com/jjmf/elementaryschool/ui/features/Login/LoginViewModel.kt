@@ -5,7 +5,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jjmf.elementaryschool.data.usecase.LoginUsecase
+import com.jjmf.elementaryschool.data.repository.UsuarioRepository
+import com.jjmf.elementaryschool.model.Usuario
+import com.jjmf.elementaryschool.util.Recursos
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,33 +15,46 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val usecase: LoginUsecase
+    private val repository: UsuarioRepository,
 ) : ViewModel() {
 
-    var correo by mutableStateOf("")
+    var correo by mutableStateOf("joeljoas@gmail.com")
     var error by mutableStateOf<String?>(null)
 
-    var toMenu by mutableStateOf(false)
+    var toMenu by mutableStateOf<String?>(null)
 
     var clave by mutableStateOf("12345678")
 
-    fun signIn(){
-        viewModelScope.launch(Dispatchers.IO){
-            val correoValidado = usecase.validateCorreoUseCase(correo)
-            val claveValidada = usecase.validateClaveUseCase(clave)
-
-            when(true){
-                !correoValidado.isSuccessfull -> error = correoValidado.errorMessage
-                !claveValidada.isSuccessfull -> error = claveValidada.errorMessage
-                else -> {
-                    val signIn = usecase.signIn(correo, clave)
-                    if (signIn.isSuccessfull){
-                        toMenu = true
-                    }else{
-                        error = signIn.errorMessage
-                    }
+    fun signIn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val usuario = repository.getList()
+                    .find { it.correo.trim() == correo && it.clave.trim() == clave }
+                if (usuario != null) {
+                    toMenu = usuario.tipoUsuario
+                } else {
+                    error = "Usuario y/o contraseña son incorrectas"
                 }
+            } catch (e: Exception) {
+                error = e.message
             }
+        }
+    }
+
+    fun insertarUsuarioTest() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insert(
+                Usuario(
+                    correo = "joeljoas@gmail.com",
+                    clave = "12345678",
+                    nombre = "Joel",
+                    apellido = "Maldonado",
+                    celular = "936416623",
+                    tipoUsuario = "P",
+                    genero = "H",
+                    icono = Recursos.getMaestro()
+                )
+            )
         }
     }
 }

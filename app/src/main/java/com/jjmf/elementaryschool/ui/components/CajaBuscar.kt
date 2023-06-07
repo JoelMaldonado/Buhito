@@ -34,6 +34,7 @@ import com.jjmf.elementaryschool.ui.theme.ColorS1
 fun CajaBuscar(
     valor: String,
     newValor: (String) -> Unit,
+    withCancel:Boolean = true
 ) {
     val focus = LocalFocusManager.current
     Row(
@@ -89,16 +90,16 @@ fun CajaBuscar(
             }
         }
 
-        AnimatedVisibility(visible = valor.isNotEmpty()) {
-            Text(
-                text = "Cancelar",
-                color = ColorS1,
-                modifier = Modifier.clickable {
-                    newValor("")
-                    focus.clearFocus()
-                },
-                fontWeight = FontWeight.Medium
-            )
+        AnimatedVisibility(visible = valor.isNotEmpty() && withCancel) {
+                Text(
+                    text = "Cancelar",
+                    color = ColorS1,
+                    modifier = Modifier.clickable {
+                        newValor("")
+                        focus.clearFocus()
+                    },
+                    fontWeight = FontWeight.Medium
+                )
         }
     }
 }

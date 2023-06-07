@@ -1,13 +1,11 @@
-package com.jjmf.elementaryschool.ui.features.Director.UsuarioMaestro
+package com.jjmf.elementaryschool.ui.features.Director.VerProfesores
 
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,10 +32,11 @@ import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
 
 @Composable
-fun UsuarioMaestroScreen(
+fun VerProfesoresScreen(
     back: () -> Unit,
-    toAgregarUsuario: () -> Unit,
-    viewModel: UsuarioMaestroViewModel = hiltViewModel(),
+    toEditarProfesor: (id:Int) -> Unit,
+    toAgregarProfesor: () -> Unit,
+    viewModel: VerProfesoresViewModel = hiltViewModel(),
 ) {
 
     LaunchedEffect(key1 = Unit) {
@@ -51,7 +50,7 @@ fun UsuarioMaestroScreen(
     ) {
         Top(
             back = back,
-            titulo = "Usuarios"
+            titulo = "Profesores"
         )
 
         Box(
@@ -86,7 +85,7 @@ fun UsuarioMaestroScreen(
                         titulo = it.nombre,
                         descrip = if (it.tipoUsuario == "A") "Alumno" else "Profesor",
                         click = {
-
+                            toEditarProfesor(it.id)
                         },
                         onlongClick = {
                             alertEliminar(
@@ -101,7 +100,7 @@ fun UsuarioMaestroScreen(
                 }
             }
             FloatingActionButton(
-                onClick = toAgregarUsuario,
+                onClick = toAgregarProfesor,
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = Color.White,
                 modifier = Modifier.padding(bottom = 20.dp)
@@ -115,8 +114,8 @@ fun UsuarioMaestroScreen(
 
 fun alertEliminar(context: Context, nombre: String, click: () -> Unit) {
     SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE).apply {
-        titleText = "Cuidado"
-        contentText = "Estas seguro de eliminar este usuario '${nombre.uppercase()}'"
+        titleText = "¡Cuidado!"
+        contentText = "Estas seguro de eliminar '${nombre.uppercase()}'"
         confirmButtonBackgroundColor = ColorP1.hashCode()
         setConfirmButton("Confirmar") {
             click()

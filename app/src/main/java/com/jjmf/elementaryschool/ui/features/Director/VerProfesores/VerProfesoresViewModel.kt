@@ -1,4 +1,4 @@
-package com.jjmf.elementaryschool.ui.features.Director.UsuarioMaestro
+package com.jjmf.elementaryschool.ui.features.Director.VerProfesores
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UsuarioMaestroViewModel @Inject constructor(
+class VerProfesoresViewModel @Inject constructor(
     private val repository: UsuarioRepository,
 ) : ViewModel() {
 
@@ -28,7 +28,7 @@ class UsuarioMaestroViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.getListFlow().collect() { list ->
-                    listUsuariosMain = list
+                    listUsuariosMain = list.filter { it.tipoUsuario == "P" }
                     listUsuarios = listUsuariosMain
                 }
             } catch (e: Exception) {

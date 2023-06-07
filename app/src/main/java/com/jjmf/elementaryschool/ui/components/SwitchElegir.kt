@@ -1,4 +1,4 @@
-package com.jjmf.elementaryschool.ui.features.Director.AgregarUsuario.components
+package com.jjmf.elementaryschool.ui.features.Director.AgregarEditarProfesor.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement

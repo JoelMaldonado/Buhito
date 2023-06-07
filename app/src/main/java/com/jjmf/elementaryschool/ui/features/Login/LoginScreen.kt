@@ -43,7 +43,7 @@ import com.jjmf.elementaryschool.ui.theme.ColorS1
 
 @Composable
 fun LoginScreen(
-    toMenuDirector: () -> Unit,
+    toMenuDirector: (String) -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
 
@@ -53,10 +53,10 @@ fun LoginScreen(
         Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         viewModel.error = null
     }
-    if (viewModel.toMenu) {
+    viewModel.toMenu?.let {
         LaunchedEffect(key1 = Unit) {
-            toMenuDirector()
-            viewModel.toMenu = false
+            toMenuDirector(it)
+            viewModel.toMenu = null
         }
     }
     Column(
@@ -90,7 +90,10 @@ fun LoginScreen(
                     painter = painterResource(id = R.drawable.ic_buho),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(120.dp),
+                        .size(120.dp)
+                        .clickable {
+                                   viewModel.insertarUsuarioTest()
+                        },
                     tint = ColorS1
                 )
 
