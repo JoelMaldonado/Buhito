@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.School
@@ -27,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jjmf.elementaryschool.model.Usuario
 import com.jjmf.elementaryschool.ui.components.CajaBuscar
 import com.jjmf.elementaryschool.ui.components.ItemMaestro
 import com.jjmf.elementaryschool.ui.components.Top
@@ -38,19 +41,93 @@ import com.jjmf.elementaryschool.util.Recursos
 fun VerGradosScreen(
     back: () -> Unit,
     toAddEditGrado: () -> Unit,
+    toVerSecciones:()->Unit,
     viewModel: VerGradosViewModel = hiltViewModel(),
 ) {
+
     val context = LocalContext.current
     LaunchedEffect(key1 = Unit){
         viewModel.getGrados()
     }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
     ) {
         Top(
             back = back,
             titulo = "Grados"
         )
+
+
+        CajaBuscar(
+            valor = viewModel.filtro,
+            newValor = { valor ->
+                viewModel.filtro = valor
+                viewModel.listGrado =
+                    viewModel.listGradoMain.filter {
+                        it.detalle.uppercase().contains(valor.uppercase())
+                    }
+            }
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+        ) {
+
+
+            ItemMaestro(
+                img = Recursos.getBuhito(),
+                init = "1°",
+                titulo = "Grado",
+                descrip = "3 Secciones",
+                click = toVerSecciones,
+                onlongClick = {}
+            )
+            ItemMaestro(
+                img = Recursos.getBuhito(),
+                init = "2°",
+                titulo = "Grado",
+                descrip = "3 Secciones",
+                click = {},
+                onlongClick = {}
+            )
+            ItemMaestro(
+                img = Recursos.getBuhito(),
+                init = "3°",
+                titulo = "Grado",
+                descrip = "3 Secciones",
+                click = {},
+                onlongClick = {}
+            )
+            ItemMaestro(
+                img = Recursos.getBuhito(),
+                init = "4°",
+                titulo = "Grado",
+                descrip = "3 Secciones",
+                click = {},
+                onlongClick = {}
+            )
+            ItemMaestro(
+                img = Recursos.getBuhito(),
+                init = "5°",
+                titulo = "Grado",
+                descrip = "3 Secciones",
+                click = {},
+                onlongClick = {}
+            )
+            ItemMaestro(
+                img = Recursos.getBuhito(),
+                init = "6°",
+                titulo = "Grado",
+                descrip = "3 Secciones",
+                click = {},
+                onlongClick = {}
+            )
+        }
+
+        /*
 
         Box(
             modifier = Modifier
@@ -101,6 +178,7 @@ fun VerGradosScreen(
                     )
                 }
             }
+
             FloatingActionButton(
                 onClick = toAddEditGrado,
                 containerColor = MaterialTheme.colorScheme.secondary,
@@ -111,6 +189,9 @@ fun VerGradosScreen(
             }
 
         }
+
+        */
+
     }
 
 }

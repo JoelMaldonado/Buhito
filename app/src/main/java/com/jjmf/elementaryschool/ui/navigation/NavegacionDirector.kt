@@ -13,7 +13,9 @@ import com.jjmf.elementaryschool.ui.features.Director.VerCursos.AddEditCurso.Add
 import com.jjmf.elementaryschool.ui.features.Director.VerCursos.CursoMaestroScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerGrados.AddEditGrado.AddEditGradoScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerGradosScreen
+import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerSecciones.VerSeccionesScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.AddEditProfesor.AddEditProfesorScreen
+import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.AsignarCurso.AsignarCursosScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.VerProfesoresScreen
 
 @Composable
@@ -22,8 +24,8 @@ fun NavegacionDirector() {
     val context = LocalContext.current
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Rutas.MenuDirector.url){
-        composable(Rutas.MenuDirector.url){
+    NavHost(navController = navController, startDestination = Rutas.MenuDirector.url) {
+        composable(Rutas.MenuDirector.url) {
 
             MenuDirectorScreen(
                 toProfesor = {
@@ -76,6 +78,31 @@ fun NavegacionDirector() {
                     id = id,
                     back = {
                         navController.popBackStack()
+                    },
+                    toAsignar = {
+                        navController.navigate(Rutas.AsignarCurso.sendId(id))
+                    }
+                )
+            } else {
+                Toast.makeText(context, "Ruta no encontrada", Toast.LENGTH_SHORT).show()
+                navController.popBackStack()
+            }
+        }
+
+        composable(
+            route = Rutas.AsignarCurso.url,
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id = it.arguments?.getInt("id")
+            if (id != null) {
+                AsignarCursosScreen(
+                    id = id,
+                    back = {
+                        navController.popBackStack()
                     }
                 )
             } else {
@@ -106,18 +133,27 @@ fun NavegacionDirector() {
             )
         }
 
-        composable(Rutas.VerGrados.url){
+        composable(Rutas.VerGrados.url) {
             VerGradosScreen(
                 back = {
                     navController.popBackStack()
                 },
                 toAddEditGrado = {
                     navController.navigate(Rutas.AgregarGrado.url)
+                },
+                toVerSecciones = {
+                    navController.navigate(Rutas.VerSecciones.url)
                 }
             )
         }
 
-        composable(Rutas.AgregarGrado.url){
+        composable(Rutas.VerSecciones.url){
+            VerSeccionesScreen {
+                navController.popBackStack()
+            }
+        }
+
+        composable(Rutas.AgregarGrado.url) {
             AddEditGradoScreen(
                 back = {
                     navController.popBackStack()

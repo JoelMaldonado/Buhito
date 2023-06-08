@@ -44,7 +44,8 @@ import com.jjmf.elementaryschool.ui.theme.ColorP1
 @Composable
 fun Top(
     back: () -> Unit,
-    titulo: String
+    titulo: String,
+    trailingIcon: @Composable (()->Unit)? = null
 ) {
     Box(
         modifier = Modifier
@@ -79,6 +80,11 @@ fun Top(
                 color = Color.White,
                 fontSize = 20.sp
             )
+
+            trailingIcon?.let { compose->
+                Spacer(modifier = Modifier.weight(1f))
+                compose()
+            }
 
         }
     }

@@ -42,8 +42,5 @@ fun NavegacionPrincipal() {
             NavegacionDirector()
         }
 
-
-
-
     }
 }

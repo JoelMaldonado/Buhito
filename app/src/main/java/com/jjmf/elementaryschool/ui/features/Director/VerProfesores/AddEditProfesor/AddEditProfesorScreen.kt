@@ -50,6 +50,7 @@ import com.jjmf.elementaryschool.util.Recursos
 @Composable
 fun AddEditProfesorScreen(
     id: Int? = null,
+    toAsignar:(()->Unit)? = null,
     back: () -> Unit,
     viewModel: AddEditProfesorViewModel = hiltViewModel(),
 ) {
@@ -215,7 +216,7 @@ fun AddEditProfesorScreen(
             id?.let {
                 Text(
                     text = "Asignar Cursos",
-                    modifier = Modifier.clickable { },
+                    modifier = Modifier.clickable { toAsignar!!() },
                     color = ColorS1,
                     fontWeight = FontWeight.Medium
                 )
@@ -236,4 +237,3 @@ fun AddEditProfesorScreen(
         }
     }
 }
-

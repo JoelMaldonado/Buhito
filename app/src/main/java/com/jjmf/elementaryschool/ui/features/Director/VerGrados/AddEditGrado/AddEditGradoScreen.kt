@@ -101,8 +101,10 @@ fun AddEditGradoScreen(
                             tint = Color.White
                         )
                     } else {
+
                         val primero = viewModel.detalle[0].uppercase()
                         val segundo = if (viewModel.seccion.isNotEmpty()) viewModel.seccion.first().uppercase() else ""
+
                         Text(
                             text =  primero + segundo,
                             fontWeight = FontWeight.SemiBold,
