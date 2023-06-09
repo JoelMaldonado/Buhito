@@ -1,4 +1,4 @@
-package com.jjmf.elementaryschool.ui.features.Director.VerCursos.AddEditCurso
+package com.jjmf.elementaryschool.ui.features.Director.VerCursos.SaveCurso
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditCursoViewModel @Inject constructor(
+class SaveCursoViewModel @Inject constructor(
     private val repository: CursoRepository,
 ) : ViewModel() {
     var nombreCurso by mutableStateOf("")

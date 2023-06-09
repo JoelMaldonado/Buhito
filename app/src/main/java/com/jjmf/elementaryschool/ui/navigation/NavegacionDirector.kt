@@ -9,9 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jjmf.elementaryschool.ui.features.Director.MenuDirectorScreen
-import com.jjmf.elementaryschool.ui.features.Director.VerCursos.AddEditCurso.AddEditCursoScreen
+import com.jjmf.elementaryschool.ui.features.Director.VerCursos.SaveCurso.SaveCursoScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerCursos.CursoMaestroScreen
-import com.jjmf.elementaryschool.ui.features.Director.VerGrados.AddEditGrado.AddEditGradoScreen
+import com.jjmf.elementaryschool.ui.features.Director.VerGrados.SaveGrado.SaveGradoScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerGradosScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerSecciones.VerSeccionesScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.AddEditProfesor.AddEditProfesorScreen
@@ -126,7 +126,7 @@ fun NavegacionDirector() {
 
         /**Editar Curso**/
         composable(Rutas.AgregarCurso.url) {
-            AddEditCursoScreen(
+            SaveCursoScreen(
                 back = {
                     navController.popBackStack()
                 }
@@ -154,13 +154,11 @@ fun NavegacionDirector() {
         }
 
         composable(Rutas.AgregarGrado.url) {
-            AddEditGradoScreen(
+            SaveGradoScreen(
                 back = {
                     navController.popBackStack()
                 }
             )
         }
     }
-
-
 }

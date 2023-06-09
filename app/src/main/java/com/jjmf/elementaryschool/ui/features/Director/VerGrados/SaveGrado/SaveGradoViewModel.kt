@@ -1,4 +1,4 @@
-package com.jjmf.elementaryschool.ui.features.Director.VerGrados.AddEditGrado
+package com.jjmf.elementaryschool.ui.features.Director.VerGrados.SaveGrado
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditGradoViewModel @Inject constructor(
+class SaveGradoViewModel @Inject constructor(
     private val repository: GradoRepository,
 ) : ViewModel() {
     var detalle by mutableStateOf("")
@@ -36,5 +36,4 @@ class AddEditGradoViewModel @Inject constructor(
             }
         }
     }
-
 }

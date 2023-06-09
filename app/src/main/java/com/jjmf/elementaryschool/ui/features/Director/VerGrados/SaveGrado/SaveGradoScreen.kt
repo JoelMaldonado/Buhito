@@ -1,8 +1,8 @@
-package com.jjmf.elementaryschool.ui.features.Director.VerCursos.AddEditCurso
+package com.jjmf.elementaryschool.ui.features.Director.VerGrados.SaveGrado
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,52 +12,39 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
 import com.jjmf.elementaryschool.ui.components.CajaTexto
 import com.jjmf.elementaryschool.ui.components.Top
-import com.jjmf.elementaryschool.ui.features.Director.components.AlertSeleccionarIconoCurso
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
+import com.jjmf.elementaryschool.ui.theme.ColorT1
 
 @Composable
-fun AddEditCursoScreen(
+fun SaveGradoScreen(
     back: () -> Unit,
-    viewModel: AddEditCursoViewModel = hiltViewModel(),
+    viewModel: SaveGradoViewModel = hiltViewModel(),
 ) {
-
     if (viewModel.back) {
         LaunchedEffect(key1 = Unit) {
             back()
             viewModel.back = false
         }
-    }
-
-    if (viewModel.alertSeleccionarIcono) {
-        AlertSeleccionarIconoCurso(
-            close = {
-                viewModel.alertSeleccionarIcono = false
-            },
-            click = {
-                viewModel.iconoCursoMain = it
-                viewModel.alertSeleccionarIcono = false
-            }
-        )
     }
 
     Column(
@@ -66,7 +53,7 @@ fun AddEditCursoScreen(
 
         Top(
             back = back,
-            titulo = "Añadir Curso"
+            titulo = "Añadir Grado"
         )
         Column(
             modifier = Modifier
@@ -87,26 +74,55 @@ fun AddEditCursoScreen(
 
                 CajaTexto(
                     modifier = Modifier.weight(1f),
-                    valor = viewModel.nombreCurso,
+                    valor = viewModel.detalle,
                     newValor = {
-                        viewModel.nombreCurso = it
+                        viewModel.detalle = it
                     },
-                    label = "Nombre del curso"
+                    label = "Nombre del Grado",
+                    placeholder = "Ej. 3",
+                    keyboardType = KeyboardType.Number
                 )
 
-                AsyncImage(
-                    model = viewModel.iconoCursoMain,
-                    contentDescription = null,
+                Box(
                     modifier = Modifier
                         .size(80.dp)
                         .clip(CircleShape)
-                        .clickable {
-                            viewModel.alertSeleccionarIcono = true
-                        }
-                )
+                        .background(ColorT1),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (viewModel.detalle.isEmpty()) {
+                        Icon(
+                            imageVector = Icons.Default.QuestionMark,
+                            contentDescription = null,
+                            tint = Color.White
+                        )
+                    } else {
+
+                        val primero = viewModel.detalle[0].uppercase()
+                        val segundo = if (viewModel.seccion.isNotEmpty()) viewModel.seccion.first().uppercase() else ""
+
+                        Text(
+                            text =  primero + segundo,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.White,
+                            fontSize = 24.sp
+                        )
+                    }
+                }
             }
 
+            CajaTexto(
+                modifier = Modifier.fillMaxWidth(),
+                valor = viewModel.seccion,
+                newValor = {
+                    viewModel.seccion = it
+                },
+                label = "Sección (opcional)",
+                placeholder = "Ej. A"
+            )
+
             Spacer(modifier = Modifier.weight(1f))
+
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
@@ -119,5 +135,4 @@ fun AddEditCursoScreen(
             }
         }
     }
-
 }

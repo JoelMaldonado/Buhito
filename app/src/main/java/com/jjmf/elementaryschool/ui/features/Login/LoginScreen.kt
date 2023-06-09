@@ -211,7 +211,7 @@ fun CajaLogin(
             BasicTextField(
                 value = valor,
                 onValueChange = newValor,
-                textStyle = TextStyle(fontSize = 18.sp),
+                textStyle = TextStyle(fontSize = 18.sp, color = Color.Gray),
                 modifier = Modifier.fillMaxWidth()
             )
         }
