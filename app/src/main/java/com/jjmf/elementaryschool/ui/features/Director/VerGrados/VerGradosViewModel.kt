@@ -5,66 +5,32 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jjmf.elementaryschool.data.repository.GradoRepository
-import com.jjmf.elementaryschool.model.Grado
-import com.jjmf.elementaryschool.model.Usuario
+import com.jjmf.elementaryschool.data.repository.SeccionRepository
+import com.jjmf.elementaryschool.model.Seccion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class VerGradosViewModel @Inject constructor(
-    private val repository: GradoRepository,
+    private val repository: SeccionRepository,
 ) : ViewModel() {
 
     var filtro by mutableStateOf("")
     var error by mutableStateOf<String?>(null)
-    var listGrado by mutableStateOf<List<Grado>>(emptyList())
-    var listGradoMain by mutableStateOf<List<Grado>>(emptyList())
 
-    fun getGrados() {
+    var list by mutableStateOf<List<Seccion>>(emptyList())
+
+    fun getSeccion(){
         viewModelScope.launch(Dispatchers.IO){
             try {
-                repository.getListFlow().collect(){list->
-                    listGradoMain = list
-                    listGrado = listGradoMain
-                }
+                list = repository.getList(0)
             }catch (e:Exception){
-                error = e.message
             }
         }
     }
-
-    fun deleteGrado(grado: Grado) {
-        viewModelScope.launch(Dispatchers.IO){
-            try {
-                repository.delete(grado)
-            }catch (e:Exception){
-                error = e.message
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

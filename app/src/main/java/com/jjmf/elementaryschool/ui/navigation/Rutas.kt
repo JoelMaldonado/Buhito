@@ -22,9 +22,10 @@ sealed class Rutas(val url: String) {
         fun sendId(id:Int) = "editar_curso?$id"
     }
     object VerGrados : Rutas(url = "vergrado")
-    object VerSecciones : Rutas(url = "ver_secciones")
-    object AgregarGrado : Rutas(url = "agregar_grado")
-    object EditarGrado : Rutas(url = "editar_grado?{id}"){
-        fun sendId(id:Int) = "editar_grado?$id"
+    object VerSecciones : Rutas(url = "ver_secciones?{grado}"){
+        fun sendGrado(grado:Int) = "ver_secciones?$grado"
+    }
+    object VerSalon : Rutas(url = "ver_salon?{id}"){
+        fun sendId(id:Int) = "ver_salon?$id"
     }
 }

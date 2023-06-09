@@ -11,8 +11,8 @@ import androidx.navigation.navArgument
 import com.jjmf.elementaryschool.ui.features.Director.MenuDirectorScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerCursos.SaveCurso.SaveCursoScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerCursos.CursoMaestroScreen
-import com.jjmf.elementaryschool.ui.features.Director.VerGrados.SaveGrado.SaveGradoScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerGradosScreen
+import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerSalon.VerSalonScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerSecciones.VerSeccionesScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.AddEditProfesor.AddEditProfesorScreen
 import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.AsignarCurso.AsignarCursosScreen
@@ -138,27 +138,49 @@ fun NavegacionDirector() {
                 back = {
                     navController.popBackStack()
                 },
-                toAddEditGrado = {
-                    navController.navigate(Rutas.AgregarGrado.url)
-                },
-                toVerSecciones = {
-                    navController.navigate(Rutas.VerSecciones.url)
+                toVerSecciones = { grado ->
+                    navController.navigate(Rutas.VerSecciones.sendGrado(grado))
                 }
             )
         }
 
-        composable(Rutas.VerSecciones.url){
-            VerSeccionesScreen {
-                navController.popBackStack()
-            }
-        }
-
-        composable(Rutas.AgregarGrado.url) {
-            SaveGradoScreen(
+        composable(
+            route = Rutas.VerSecciones.url,
+            arguments = listOf(
+                navArgument("grado") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val grado = it.arguments?.getInt("grado")!!
+            VerSeccionesScreen(
+                grado = grado,
+                toVerSalon = { id ->
+                    navController.navigate(Rutas.VerSalon.sendId(id))
+                },
                 back = {
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable(
+            route = Rutas.VerSalon.url,
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+
+            val id = it.arguments?.getInt("id")!!
+            VerSalonScreen(
+                idSeccion = id,
+                back = {
+                    navController.popBackStack()
+                }
+            )
+
         }
     }
 }

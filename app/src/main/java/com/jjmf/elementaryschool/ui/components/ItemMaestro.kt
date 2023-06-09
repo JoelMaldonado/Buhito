@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jjmf.elementaryschool.ui.theme.ColorT1
@@ -38,9 +39,10 @@ fun ItemMaestro(
     init:String? = null,
     titulo: String,
     descrip: String,
-    click:()->Unit,
-    onlongClick:()->Unit,
-    modifier: Modifier = Modifier
+    click:(()->Unit)? = null,
+    onlongClick:(()->Unit)? = null,
+    modifier: Modifier = Modifier,
+    size:Dp = 70.dp
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -49,8 +51,16 @@ fun ItemMaestro(
             modifier = Modifier
                 .fillMaxWidth()
                 .combinedClickable(
-                    onClick = click,
-                    onLongClick = onlongClick
+                    onClick = {
+                        if (click != null) {
+                            click()
+                        }
+                    },
+                    onLongClick = {
+                        if (onlongClick != null) {
+                            onlongClick()
+                        }
+                    }
                 )
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -60,7 +70,7 @@ fun ItemMaestro(
 
                 Box(
                     modifier = Modifier
-                        .size(70.dp)
+                        .size(size)
                         .clip(CircleShape)
                         .background(ColorT1),
                     contentAlignment = Alignment.Center
