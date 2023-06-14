@@ -52,6 +52,9 @@ fun VerSeccionesScreen(
                             .padding(10.dp)
                     ) {
                         Text(text = "Seccion A")
+
+                        val texto = "Hola mundo"
+                        
                     }
                 }
             }
@@ -68,3 +71,4 @@ fun VerSeccionesScreen(
 
     }
 }
+
