@@ -36,7 +36,7 @@ fun VerSeccionesScreen(
     grado: Int,
     back: () -> Unit,
     toVerSalon:(Int)->Unit,
-    viewModel: VerSeccionesViewModel = hiltViewModel(),
+    viewModel: VerSeccionesViewModel = hiltViewModel()
 ) {
 
     val list = viewModel.list.collectAsState().value
@@ -82,8 +82,6 @@ fun VerSeccionesScreen(
                             .padding(10.dp)
                     ) {
                         Text(text = "Seccion A")
-
-                        val texto = "Hola mundo"
 
                     }
                     Box(

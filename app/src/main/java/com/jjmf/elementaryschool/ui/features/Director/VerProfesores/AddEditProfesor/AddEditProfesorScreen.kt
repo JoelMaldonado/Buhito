@@ -50,12 +50,17 @@ import com.jjmf.elementaryschool.util.Recursos
 @Composable
 fun AddEditProfesorScreen(
     id: Int? = null,
-    toAsignar:(()->Unit)? = null,
+    toAsignar:(Int)->Unit,
     back: () -> Unit,
     viewModel: AddEditProfesorViewModel = hiltViewModel(),
 ) {
 
     val focus = LocalFocusManager.current
+
+    viewModel.toAsignar?.let {
+        toAsignar(it)
+        viewModel.toAsignar = null
+    }
 
     if (viewModel.alertAsignarGrado) {
         AlertAsignarGrado(
@@ -214,7 +219,7 @@ fun AddEditProfesorScreen(
             id?.let {
                 Text(
                     text = "Asignar Cursos",
-                    modifier = Modifier.clickable { toAsignar!!() },
+                    modifier = Modifier.clickable { toAsignar(id) },
                     color = ColorS1,
                     fontWeight = FontWeight.Medium
                 )
@@ -224,7 +229,9 @@ fun AddEditProfesorScreen(
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = viewModel::insertarUsuario,
+                onClick = {
+                    viewModel.insertupdateUsuario(id)
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = ColorS1
                 ),
