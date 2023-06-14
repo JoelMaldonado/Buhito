@@ -1,23 +1,25 @@
-package com.jjmf.elementaryschool.ui.features.Director.VerGrados.AddEditGrado
+package com.jjmf.elementaryschool.ui.features.Director.VerCursos.SaveCurso
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jjmf.elementaryschool.data.repository.GradoRepository
-import com.jjmf.elementaryschool.model.Grado
+import com.jjmf.elementaryschool.data.repository.CursoRepository
+import com.jjmf.elementaryschool.model.Curso
+import com.jjmf.elementaryschool.util.Recursos
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditGradoViewModel @Inject constructor(
-    private val repository: GradoRepository,
+class SaveCursoViewModel @Inject constructor(
+    private val repository: CursoRepository,
 ) : ViewModel() {
-    var detalle by mutableStateOf("")
-    var seccion by mutableStateOf("")
+    var nombreCurso by mutableStateOf("")
+    var alertSeleccionarIcono by mutableStateOf(false)
+    var iconoCursoMain by mutableStateOf(Recursos.getCurso())
 
     var error by mutableStateOf<String?>(null)
     var back by mutableStateOf(false)
@@ -25,16 +27,16 @@ class AddEditGradoViewModel @Inject constructor(
     fun insertarCurso() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val grado = Grado(
-                    detalle = detalle,
-                    seccion = seccion
+                val curso = Curso(
+                    detalle = nombreCurso,
+                    icono = iconoCursoMain
                 )
-                repository.insert(grado = grado)
+                repository.insert(curso)
                 back = true
+
             } catch (e: Exception) {
                 error = e.message
             }
         }
     }
-
 }

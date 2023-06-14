@@ -1,9 +1,8 @@
-package com.jjmf.elementaryschool.ui.features.Director.VerGrados.AddEditGrado
+package com.jjmf.elementaryschool.ui.features.Director.VerCursos.SaveCurso
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,12 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.QuestionAnswer
-import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,8 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,18 +30,30 @@ import com.jjmf.elementaryschool.ui.components.Top
 import com.jjmf.elementaryschool.ui.features.Director.components.AlertSeleccionarIconoCurso
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
-import com.jjmf.elementaryschool.ui.theme.ColorT1
 
 @Composable
-fun AddEditGradoScreen(
+fun SaveCursoScreen(
     back: () -> Unit,
-    viewModel: AddEditGradoViewModel = hiltViewModel(),
+    viewModel: SaveCursoViewModel = hiltViewModel(),
 ) {
+
     if (viewModel.back) {
         LaunchedEffect(key1 = Unit) {
             back()
             viewModel.back = false
         }
+    }
+
+    if (viewModel.alertSeleccionarIcono) {
+        AlertSeleccionarIconoCurso(
+            close = {
+                viewModel.alertSeleccionarIcono = false
+            },
+            click = {
+                viewModel.iconoCursoMain = it
+                viewModel.alertSeleccionarIcono = false
+            }
+        )
     }
 
     Column(
@@ -57,7 +62,7 @@ fun AddEditGradoScreen(
 
         Top(
             back = back,
-            titulo = "Añadir Grado"
+            titulo = "Añadir Curso"
         )
         Column(
             modifier = Modifier
@@ -78,55 +83,26 @@ fun AddEditGradoScreen(
 
                 CajaTexto(
                     modifier = Modifier.weight(1f),
-                    valor = viewModel.detalle,
+                    valor = viewModel.nombreCurso,
                     newValor = {
-                        viewModel.detalle = it
+                        viewModel.nombreCurso = it
                     },
-                    label = "Nombre del Grado",
-                    placeholder = "Ej. 3",
-                    keyboardType = KeyboardType.Number
+                    label = "Nombre del curso"
                 )
 
-                Box(
+                AsyncImage(
+                    model = viewModel.iconoCursoMain,
+                    contentDescription = null,
                     modifier = Modifier
                         .size(80.dp)
                         .clip(CircleShape)
-                        .background(ColorT1),
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (viewModel.detalle.isEmpty()) {
-                        Icon(
-                            imageVector = Icons.Default.QuestionMark,
-                            contentDescription = null,
-                            tint = Color.White
-                        )
-                    } else {
-
-                        val primero = viewModel.detalle[0].uppercase()
-                        val segundo = if (viewModel.seccion.isNotEmpty()) viewModel.seccion.first().uppercase() else ""
-
-                        Text(
-                            text =  primero + segundo,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White,
-                            fontSize = 24.sp
-                        )
-                    }
-                }
+                        .clickable {
+                            viewModel.alertSeleccionarIcono = true
+                        }
+                )
             }
 
-            CajaTexto(
-                modifier = Modifier.fillMaxWidth(),
-                valor = viewModel.seccion,
-                newValor = {
-                    viewModel.seccion = it
-                },
-                label = "Sección (opcional)",
-                placeholder = "Ej. A"
-            )
-
             Spacer(modifier = Modifier.weight(1f))
-
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
@@ -139,4 +115,5 @@ fun AddEditGradoScreen(
             }
         }
     }
+
 }

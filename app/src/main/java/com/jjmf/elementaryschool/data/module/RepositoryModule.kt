@@ -2,8 +2,8 @@ package com.jjmf.elementaryschool.data.module
 
 import com.jjmf.elementaryschool.data.repository.CursoRepository
 import com.jjmf.elementaryschool.data.repository.CursoRepositoryImpl
-import com.jjmf.elementaryschool.data.repository.GradoRepository
-import com.jjmf.elementaryschool.data.repository.GradoRepositoryImpl
+import com.jjmf.elementaryschool.data.repository.SeccionRepository
+import com.jjmf.elementaryschool.data.repository.SeccionRepositoryImpl
 import com.jjmf.elementaryschool.data.repository.UsuarioRepository
 import com.jjmf.elementaryschool.data.repository.UsuarioRepositoryImpl
 import dagger.Binds
@@ -22,5 +22,5 @@ abstract class RepositoryModule {
     abstract fun repoCurso(repo: CursoRepositoryImpl) : CursoRepository
 
     @Binds
-    abstract fun repoGrado(repo: GradoRepositoryImpl) : GradoRepository
+    abstract fun repoSeccion(repo: SeccionRepositoryImpl) : SeccionRepository
 }

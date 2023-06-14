@@ -64,7 +64,7 @@ fun AddEditProfesorScreen(
                 viewModel.alertAsignarGrado = false
             },
             click = {
-                viewModel.grado = it
+                viewModel.seccion = it
                 viewModel.alertAsignarGrado = false
             }
         )
@@ -181,10 +181,8 @@ fun AddEditProfesorScreen(
                 )
             )
             CajaTexto(
-                valor = viewModel.grado,
-                newValor = {
-                    viewModel.grado = it
-                },
+                valor = "Sin asignar",
+                newValor = {},
                 label = "Grado",
                 trailingIcon = {
                     IconButton(
