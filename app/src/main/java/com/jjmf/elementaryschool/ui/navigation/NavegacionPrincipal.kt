@@ -1,13 +1,10 @@
 package com.jjmf.elementaryschool.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jjmf.elementaryschool.ui.features.Login.LoginScreen
-import com.jjmf.elementaryschool.ui.features.Profesor.MenuProfesorScreen
 
 @Composable
 fun NavegacionPrincipal() {
@@ -23,7 +20,7 @@ fun NavegacionPrincipal() {
                 toMenuDirector = {
                     when (it) {
                         "A" -> navController.navigate(Rutas.MenuAlumno.url)
-                        "P" -> navController.navigate(Rutas.MenuDirector.url)
+                        "P" -> navController.navigate(Rutas.MenuProfesor.url)
                         "D" -> navController.navigate(Rutas.MenuDirector.url)
                     }
                 }
@@ -31,11 +28,11 @@ fun NavegacionPrincipal() {
         }
 
         composable(Rutas.MenuAlumno.url) {
-            Text(text = "Alumno")
+            NavegacionAlumno()
         }
 
         composable(Rutas.MenuProfesor.url) {
-            MenuProfesorScreen()
+            NavegacionProfesor()
         }
 
         composable(Rutas.MenuDirector.url) {

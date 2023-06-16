@@ -2,9 +2,13 @@ package com.jjmf.elementaryschool.ui.navigation
 
 sealed class Rutas(val url: String) {
     object Login : Rutas(url = "login")
-    object MenuAlumno : Rutas(url = "menu_alumno")
     object MenuProfesor : Rutas(url = "menu_profesor")
+    object VerCursosSalon : Rutas(url = "ver_cursos_salon")
+    object AsignarNotas : Rutas(url = "asignar_notas")
 
+    /**Rutas del Alumno**/
+    object MenuAlumno : Rutas(url = "menu_alumno")
+    object VerNotasAlumno : Rutas(url = "ver_notas_alumno")
 
     /**Rutas del Director**/
     object MenuDirector : Rutas(url = "menu_director")
