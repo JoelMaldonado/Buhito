@@ -3,15 +3,18 @@ package com.jjmf.elementaryschool.ui.features.Director.VerGrados.VerSecciones
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.School
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -33,7 +36,7 @@ fun VerSeccionesScreen(
     grado: Int,
     back: () -> Unit,
     toVerSalon:(Int)->Unit,
-    viewModel: VerSeccionesViewModel = hiltViewModel(),
+    viewModel: VerSeccionesViewModel = hiltViewModel()
 ) {
 
     val list = viewModel.list.collectAsState().value
@@ -69,45 +72,60 @@ fun VerSeccionesScreen(
                 }
             }
         )
-
-        Box(
-            modifier = Modifier
-            .fillMaxSize()
-            .padding(15.dp)
-        ) {
+        Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn {
-                items(list) {
+                item {
+                    Button(
+                        onClick = {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    ) {
+                        Text(text = "Seccion A")
 
-                    ItemMaestro(
-                        img = Recursos.getBuhito(),
-                        init = "${it.grado}${it.detalle}",
-                        titulo = "Grado ${it.grado} - Seccion ${it.detalle}",
-                        descrip = "Sin profesor asignado",
-                        click = {
-                                toVerSalon(it.id)
-                        },
-                        onlongClick = {
-                            alertEliminar(context, "${it.grado}${it.detalle}"){
-                                viewModel.delete(it)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(15.dp)
+                    ) {
+                        LazyColumn {
+                            items(list) {
+
+                                ItemMaestro(
+                                    img = Recursos.getBuhito(),
+                                    init = "${it.grado}${it.detalle}",
+                                    titulo = "Grado ${it.grado} - Seccion ${it.detalle}",
+                                    descrip = "Sin profesor asignado",
+                                    click = {
+                                        toVerSalon(it.id)
+                                    },
+                                    onlongClick = {
+                                        alertEliminar(context, "${it.grado}${it.detalle}") {
+                                            viewModel.delete(it)
+                                        }
+                                    }
+                                )
                             }
                         }
-                    )
-                }
-            }
 
-            if (list.size < 26){
-                FloatingActionButton(
-                    onClick = {
-                        viewModel.insertarSeccion(grado)
-                    },
-                    containerColor = ColorS1,
-                    contentColor = Color.White,
-                    modifier = Modifier.align(Alignment.BottomEnd)
-                ) {
-                    Icon(imageVector = Icons.Default.School, contentDescription = null)
+                        if (list.size < 26) {
+                            FloatingActionButton(
+                                onClick = {
+                                    viewModel.insertarSeccion(grado)
+                                },
+                                containerColor = ColorS1,
+                                contentColor = Color.White,
+                                modifier = Modifier.align(Alignment.BottomEnd)
+                            ) {
+                                Icon(imageVector = Icons.Default.School, contentDescription = null)
+                            }
+                        }
+                    }
+
                 }
             }
         }
-
     }
 }
+

@@ -60,6 +60,10 @@ fun NavegacionDirector() {
             AddEditProfesorScreen(
                 back = {
                     navController.popBackStack()
+                },
+                toAsignar = {idRpta->
+                    navController.popBackStack()
+                    navController.navigate(Rutas.AsignarCurso.sendId(idRpta))
                 }
             )
         }
@@ -79,8 +83,8 @@ fun NavegacionDirector() {
                     back = {
                         navController.popBackStack()
                     },
-                    toAsignar = {
-                        navController.navigate(Rutas.AsignarCurso.sendId(id))
+                    toAsignar = {idRpta->
+                        navController.navigate(Rutas.AsignarCurso.sendId(idRpta))
                     }
                 )
             } else {

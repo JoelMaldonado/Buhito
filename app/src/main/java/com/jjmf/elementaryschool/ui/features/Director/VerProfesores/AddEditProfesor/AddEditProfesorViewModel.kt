@@ -25,6 +25,7 @@ class AddEditProfesorViewModel @Inject constructor(
 
     var alertAsignarGrado by mutableStateOf(false)
     var back by mutableStateOf(false)
+    var toAsignar by mutableStateOf<Int?>(null)
     var error by mutableStateOf<String?>(null)
 
     var nombre by mutableStateOf("")
@@ -45,18 +46,6 @@ class AddEditProfesorViewModel @Inject constructor(
     fun insertarUsuario() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val usuario = Usuario(
-                    correo = correo,
-                    clave = "12345678",
-                    nombre = nombre,
-                    apellido = apellido,
-                    celular = celular,
-                    tipoUsuario = "P",
-                    genero = if (genero) "M" else "H",
-                    icono = iconoUsuarioMain
-                )
-                repository.insert(usuario)
-                back = true
             } catch (e: Exception) {
                 error = e.message
             }
@@ -82,6 +71,33 @@ class AddEditProfesorViewModel @Inject constructor(
                 //seccion = ""
                 genero = it.genero == "M"
                 iconoUsuarioMain = it.icono
+            }
+        }
+    }
+
+    fun insertupdateUsuario(id:Int?) {
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                if(id!=null){
+                    //TODO Aqui se debe actualizar
+                }else{
+                    val usuario = Usuario(
+                        correo = correo,
+                        clave = "12345678",
+                        nombre = nombre,
+                        apellido = apellido,
+                        celular = celular,
+                        tipoUsuario = "P",
+                        genero = if (genero) "M" else "H",
+                        icono = iconoUsuarioMain
+                    )
+                    repository.insert(usuario)
+                    val rpta = repository.getList().find { it.correo == correo }
+                    toAsignar = rpta?.id
+                }
+
+            }catch (e:Exception){
+                error = e.message
             }
         }
     }
