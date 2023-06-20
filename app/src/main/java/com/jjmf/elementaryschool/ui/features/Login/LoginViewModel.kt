@@ -56,7 +56,7 @@ class LoginViewModel @Inject constructor(
                     nombre = "Joel",
                     apellido = "Maldonado",
                     celular = "936416623",
-                    tipoUsuario = "P",
+                    tipoUsuario = "D",
                     genero = "H",
                     icono = Recursos.getMaestro()
                 )

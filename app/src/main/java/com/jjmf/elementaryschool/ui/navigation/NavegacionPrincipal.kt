@@ -20,8 +20,8 @@ fun NavegacionPrincipal() {
                 toMenuDirector = {
                     when (it) {
                         "A" -> navController.navigate(Rutas.MenuAlumno.url)
-                        "P" -> navController.navigate(Rutas.MenuProfesor.url)
-                        "D" -> navController.navigate(Rutas.MenuDirector.url)
+                        "D" -> navController.navigate(Rutas.MenuProfesor.url)
+                        "P" -> navController.navigate(Rutas.MenuDirector.url)
                     }
                 }
             )

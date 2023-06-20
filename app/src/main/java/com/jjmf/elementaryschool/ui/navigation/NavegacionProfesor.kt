@@ -22,6 +22,9 @@ fun NavegacionProfesor() {
             MenuProfesorScreen(
                 toCursos = {
                     navController.navigate(Rutas.VerCursosSalon.url)
+                },
+                back = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -30,6 +33,9 @@ fun NavegacionProfesor() {
             VerCursosSalonScreen(
                 toAsignarNotas = {
                     navController.navigate(Rutas.AsignarNotas.url)
+                },
+                back = {
+                    navController.popBackStack()
                 }
             )
         }
