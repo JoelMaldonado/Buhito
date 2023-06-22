@@ -3,6 +3,8 @@ package com.jjmf.elementaryschool.data.module
 import android.content.Context
 import androidx.room.Room
 import com.jjmf.elementaryschool.data.database.AppDataBase
+import com.jjmf.elementaryschool.data.database.dao.SeccionUsuarioDao
+import com.jjmf.elementaryschool.data.database.dao.UsuarioDao
 import com.jjmf.elementaryschool.util.Constantes.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -17,8 +19,24 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesRoom(@ApplicationContext context: Context) : AppDataBase {
-        return Room.databaseBuilder(context.applicationContext, AppDataBase::class.java, DATABASE_NAME).build()
+    fun providesRoom(@ApplicationContext context: Context): AppDataBase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            AppDataBase::class.java,
+            DATABASE_NAME
+        ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUsuario(db: AppDataBase): UsuarioDao {
+        return db.usuarioDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSeccionUsuario(db: AppDataBase): SeccionUsuarioDao {
+        return db.seccionUsuarioDao()
     }
 
 }

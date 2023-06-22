@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
@@ -22,12 +24,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jjmf.elementaryschool.ui.components.Top
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
@@ -36,8 +40,12 @@ import com.jjmf.elementaryschool.ui.theme.ColorS2
 @Composable
 fun MenuProfesorScreen(
     toCursos: () -> Unit,
-    back:()->Unit
+    back: () -> Unit,
+    viewModel: MenuProfesorViewModel = hiltViewModel(),
 ) {
+
+    val user = viewModel.user.collectAsState().value
+    val list = viewModel.list.collectAsState().value
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -80,12 +88,23 @@ fun MenuProfesorScreen(
                     }
                 )
             }
+
             CardMenuProfesor(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Cursos",
                 icon = Icons.Default.Book,
                 click = toCursos
             )
+
+            if (user != null) {
+                Text(text = user.toString())
+            }
+
+            LazyColumn{
+                items(list){
+
+                }
+            }
 
         }
     }
@@ -97,7 +116,7 @@ fun CardMenuProfesor(
     modifier: Modifier,
     text: String,
     icon: ImageVector,
-    click: () -> Unit
+    click: () -> Unit,
 ) {
     Card(
         modifier = modifier,

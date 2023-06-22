@@ -52,7 +52,6 @@ fun VerGradosScreen(
                 .verticalScroll(rememberScrollState())
         ) {
 
-
             ItemMaestro(
                 img = Recursos.getBuhito(),
                 init = "1°",

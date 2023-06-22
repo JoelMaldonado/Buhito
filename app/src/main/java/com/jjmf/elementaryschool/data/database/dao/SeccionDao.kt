@@ -25,9 +25,6 @@ interface SeccionDao {
     @Query("select * from tb_seccion where grado = :grado")
     fun getListFlow(grado: Int): Flow<List<Seccion>>
 
-    @Query("select tb_seccion.*, tb_usuario.nombre as nombreProfesor from tb_seccion inner join tb_usuario on tb_seccion.idUsuario = tb_usuario.id")
-    fun getListSeccionUsuario(): Flow<List<SeccionUsuario>>
-
     @Delete
     suspend fun delete(seccion: Seccion)
 

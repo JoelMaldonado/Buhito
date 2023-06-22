@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jjmf.elementaryschool.app.BaseApp.Companion.prefs
 import com.jjmf.elementaryschool.data.repository.UsuarioRepository
 import com.jjmf.elementaryschool.model.Usuario
 import com.jjmf.elementaryschool.util.Recursos
@@ -37,6 +38,7 @@ class LoginViewModel @Inject constructor(
                 val usuario = repository.getList()
                     .find { it.correo.trim() == correo && it.clave.trim() == clave }
                 if (usuario != null) {
+                    prefs.saveId(usuario.id)
                     toMenu = usuario.tipoUsuario
                 } else {
                     error = "Usuario y/o contraseña son incorrectas"
@@ -62,53 +64,6 @@ class LoginViewModel @Inject constructor(
                 )
             )
         }
-    }
-
-}
-
-
-fun main(){
-    val listNotas = listOf("CLT","CNL","CNL","CLT")
-    println("Tu nota es: ${getPromedio(listNotas)}")
-}
-
-
-fun getPromedio(list:List<String>) : String{
-    var cont = 0.0
-    list.forEach {
-        println(getNota(it))
-        cont += getNota(it)
-    }
-
-    val div = (cont / list.size)
-    return toNota(div)
-}
-
-
-
-
-
-
-
-
-private fun getNota(nota:String): Double{
-
-    return when(nota){
-        "CLT"-> 17.5
-        "CLP"-> 12.0
-        "CEP"-> 7.0
-        "CNL"-> 2.0
-        else -> 0.0
-    }
-}
-
-private fun toNota(nota:Double): String{
-    return when(nota){
-        in 15.0..20.0 -> "CLT"
-        in 10.0..14.9 -> "CLP"
-        in 5.0..9.9 -> "CEP"
-        in 0.0..4.9 -> "CNL"
-        else -> ""
     }
 }
 

@@ -1,6 +1,5 @@
 package com.jjmf.elementaryschool.model
 
-import androidx.annotation.DrawableRes
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -15,10 +14,3 @@ data class Seccion(
 )
 
 
-data class SeccionUsuario(
-    val id:Int,
-    val detalle:Char,
-    val grado:Int,
-    val idUsuario:Int,
-    val nombreProfesor:String
-)
