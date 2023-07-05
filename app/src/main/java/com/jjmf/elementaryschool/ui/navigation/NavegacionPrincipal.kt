@@ -19,9 +19,9 @@ fun NavegacionPrincipal() {
             LoginScreen(
                 toMenuDirector = {
                     when (it) {
-                        "A" -> navController.navigate(Rutas.MenuAlumno.url)
-                        "P" -> navController.navigate(Rutas.MenuProfesor.url)
-                        "D" -> navController.navigate(Rutas.MenuDirector.url)
+                        1 -> navController.navigate(Rutas.MenuAlumno.url)
+                        2 -> navController.navigate(Rutas.MenuProfesor.url)
+                        3 -> navController.navigate(Rutas.MenuDirector.url)
                     }
                 }
             )

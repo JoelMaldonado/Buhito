@@ -22,13 +22,11 @@ class VerProfesoresViewModel @Inject constructor(
     var listUsuariosMain by mutableStateOf<List<Usuario>>(emptyList())
     var error by mutableStateOf<String?>(null)
 
-
-
     fun getList() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.getListFlow().collect() { list ->
-                    listUsuariosMain = list.filter { it.tipoUsuario == "P" }
+                    listUsuariosMain = list.filter { it.tipoUsuario == 2 }
                     listUsuarios = listUsuariosMain
                 }
             } catch (e: Exception) {

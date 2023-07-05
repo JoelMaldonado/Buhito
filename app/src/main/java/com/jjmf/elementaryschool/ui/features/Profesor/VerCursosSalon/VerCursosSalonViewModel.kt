@@ -2,6 +2,7 @@ package com.jjmf.elementaryschool.ui.features.Profesor.VerCursosSalon
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jjmf.elementaryschool.core.EstadosResult
 import com.jjmf.elementaryschool.data.repository.CursoRepository
 import com.jjmf.elementaryschool.model.Curso
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +27,11 @@ class VerCursosSalonViewModel @Inject constructor(
     private fun getMaterias() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repository.getListFlow().collect(){
-                    _listMaterias.value = it
+                when(val res = repository.getList()){
+                    is EstadosResult.Correcto -> {
+                        _listMaterias.value = res.datos ?: emptyList()
+                    }
+                    is EstadosResult.Error -> {}
                 }
             }catch (e:Exception){
                 e.message

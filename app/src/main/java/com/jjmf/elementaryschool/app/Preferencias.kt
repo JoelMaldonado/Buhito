@@ -10,5 +10,4 @@ class Preferencias(context:Context) {
 
     fun saveId(valor: Int) = storage.edit().putInt(KEY_ID_USER, valor).apply()
     fun getId() = storage.getInt(KEY_ID_USER, 0)
-
 }

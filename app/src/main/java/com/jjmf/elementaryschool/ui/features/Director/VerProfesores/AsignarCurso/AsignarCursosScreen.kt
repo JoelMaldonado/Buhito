@@ -65,7 +65,7 @@ fun AsignarCursosScreen(
                 }else{
 
                     items(listCursos){
-                        CardProfesor(foto = it.icono, nombre = it.detalle, descrip = "Creado el 07/06/2023") {
+                        CardProfesor(foto = it.img, nombre = it.detalle, descrip = "Creado el 07/06/2023") {
 
                         }
                     }

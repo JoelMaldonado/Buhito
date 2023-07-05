@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -66,6 +67,15 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
+
+    //Firebase Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
+
+    //Firebase Storage
+    implementation "com.google.firebase:firebase-storage-ktx"
+
     //HILT COMPOSE
     implementation "com.google.dagger:hilt-android:2.44"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
@@ -77,6 +87,12 @@ dependencies {
     implementation "androidx.room:room-runtime:2.5.1"
     kapt "androidx.room:room-compiler:2.5.1"
 
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+    
     //Navegaciones
     implementation "androidx.navigation:navigation-compose:2.5.3"
 

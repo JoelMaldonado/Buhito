@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jjmf.elementaryschool.core.EstadosResult
 import com.jjmf.elementaryschool.data.repository.CursoRepository
+import com.jjmf.elementaryschool.data.usecase.Imagenes
 import com.jjmf.elementaryschool.model.Curso
 import com.jjmf.elementaryschool.util.Recursos
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +18,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SaveCursoViewModel @Inject constructor(
     private val repository: CursoRepository,
+    private val imagenes: Imagenes
 ) : ViewModel() {
+
+    var listCursos by mutableStateOf<List<String>>(emptyList())
+
     var nombreCurso by mutableStateOf("")
     var alertSeleccionarIcono by mutableStateOf(false)
-    var iconoCursoMain by mutableStateOf(Recursos.getCurso())
+    var iconoCursoMain by mutableStateOf("")
 
     var error by mutableStateOf<String?>(null)
     var back by mutableStateOf(false)
@@ -29,13 +35,23 @@ class SaveCursoViewModel @Inject constructor(
             try {
                 val curso = Curso(
                     detalle = nombreCurso,
-                    icono = iconoCursoMain
+                    img = iconoCursoMain.toString()
                 )
-                repository.insert(curso)
-                back = true
-
+                when (val res = repository.insert(curso)) {
+                    is EstadosResult.Correcto -> back = true
+                    is EstadosResult.Error -> error = res.mensajeError
+                }
             } catch (e: Exception) {
                 error = e.message
+            }
+        }
+    }
+
+    fun getImagenesCursos() {
+        viewModelScope.launch(Dispatchers.IO){
+            listCursos = imagenes.cursos()
+            if (listCursos.isNotEmpty()){
+                iconoCursoMain = listCursos.first()
             }
         }
     }

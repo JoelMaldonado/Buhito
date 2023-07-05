@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.jjmf.elementaryschool.R
 import com.jjmf.elementaryschool.ui.components.ItemMaestro
 import com.jjmf.elementaryschool.ui.components.Top
+import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun VerSalonScreen(
@@ -68,7 +69,7 @@ fun VerSalonScreen(
             ){
                 items(15){
                     ItemMaestro(
-                        img = R.drawable.alumno_2,
+                        img = Recursos.getAlumno(),
                         titulo = "Ignacio Casas",
                         descrip = "Se unio el 10/10/2008",
                         size = 50.dp

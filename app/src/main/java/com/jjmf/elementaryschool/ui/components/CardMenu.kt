@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,12 +23,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardMenu(
-    @DrawableRes img: Int,
+    img: String?,
     texto: String,
     click: () -> Unit,
 ) {
@@ -52,8 +54,11 @@ fun CardMenu(
         ) {
             Text(text = texto, fontSize = 30.sp, fontWeight = FontWeight.Bold)
 
-            Image(
-                painter = painterResource(id = img),
+            SubcomposeAsyncImage(
+                model = img,
+                loading = {
+                    CircularProgressIndicator()
+                },
                 contentDescription = null,
                 modifier = Modifier.size(120.dp)
             )

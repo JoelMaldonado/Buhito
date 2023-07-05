@@ -1,24 +1,29 @@
 package com.jjmf.elementaryschool.ui.features.Login
 
-import androidx.compose.runtime.State
+import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.jjmf.elementaryschool.app.BaseApp.Companion.prefs
 import com.jjmf.elementaryschool.data.repository.UsuarioRepository
 import com.jjmf.elementaryschool.model.Usuario
 import com.jjmf.elementaryschool.util.Recursos
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import java.util.jar.Manifest
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlin.coroutines.suspendCoroutine
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -28,41 +33,22 @@ class LoginViewModel @Inject constructor(
     var correo by mutableStateOf("joeljoas@gmail.com")
     var error by mutableStateOf<String?>(null)
 
-    var toMenu by mutableStateOf<String?>(null)
+    var toMenu by mutableStateOf<Int?>(null)
+    var loader by mutableStateOf(false)
 
     var clave by mutableStateOf("12345678")
 
     fun signIn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val usuario = repository.getList()
-                    .find { it.correo.trim() == correo && it.clave.trim() == clave }
-                if (usuario != null) {
-                    prefs.saveId(usuario.id)
-                    toMenu = usuario.tipoUsuario
-                } else {
-                    error = "Usuario y/o contraseña son incorrectas"
-                }
+                loader = true
+                Recursos.getImagenes()
+                toMenu = 3
             } catch (e: Exception) {
                 error = e.message
+            }finally {
+                loader = false
             }
-        }
-    }
-
-    fun insertarUsuarioTest() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insert(
-                Usuario(
-                    correo = "joeljoas@gmail.com",
-                    clave = "12345678",
-                    nombre = "Joel",
-                    apellido = "Maldonado",
-                    celular = "936416623",
-                    tipoUsuario = "D",
-                    genero = "H",
-                    icono = Recursos.getMaestro()
-                )
-            )
         }
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.jjmf.elementaryschool.data.database.AppDataBase
 import com.jjmf.elementaryschool.data.database.dao.SeccionUsuarioDao
-import com.jjmf.elementaryschool.data.database.dao.UsuarioDao
 import com.jjmf.elementaryschool.util.Constantes.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -25,12 +24,6 @@ class DatabaseModule {
             AppDataBase::class.java,
             DATABASE_NAME
         ).build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideUsuario(db: AppDataBase): UsuarioDao {
-        return db.usuarioDao()
     }
 
     @Singleton

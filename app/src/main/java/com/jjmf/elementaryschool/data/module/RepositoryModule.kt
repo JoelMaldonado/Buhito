@@ -4,6 +4,8 @@ import com.jjmf.elementaryschool.data.repository.CalificacionRepository
 import com.jjmf.elementaryschool.data.repository.CalificacionRepositoryImpl
 import com.jjmf.elementaryschool.data.repository.CursoRepository
 import com.jjmf.elementaryschool.data.repository.CursoRepositoryImpl
+import com.jjmf.elementaryschool.data.repository.ImagenesRepository
+import com.jjmf.elementaryschool.data.repository.ImagenesRepositoryImpl
 import com.jjmf.elementaryschool.data.repository.SeccionRepository
 import com.jjmf.elementaryschool.data.repository.SeccionRepositoryImpl
 import com.jjmf.elementaryschool.data.repository.SeccionUsuarioRepository
@@ -33,4 +35,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun repoCalificacion(repo: CalificacionRepositoryImpl) : CalificacionRepository
+
+    @Binds
+    abstract fun repoImagenes(repo:ImagenesRepositoryImpl) : ImagenesRepository
 }

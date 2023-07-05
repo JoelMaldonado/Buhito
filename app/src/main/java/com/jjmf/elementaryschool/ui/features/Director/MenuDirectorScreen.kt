@@ -23,6 +23,7 @@ import com.jjmf.elementaryschool.ui.components.CardMenu
 import com.jjmf.elementaryschool.ui.navigation.Rutas
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
+import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun MenuDirectorScreen(
@@ -61,19 +62,19 @@ fun MenuDirectorScreen(
             )
 
             CardMenu(
-                img = viewModel.icProfesor,
+                img = "",
                 texto = "Profesores",
                 click = toProfesor
             )
 
             CardMenu(
-                img = viewModel.icCurso,
+                img = "",
                 texto = "Cursos",
                 click = toCurso
             )
 
             CardMenu(
-                img = viewModel.icGrado,
+                img = "",
                 texto = "Grados",
                 click = toGrado
             )

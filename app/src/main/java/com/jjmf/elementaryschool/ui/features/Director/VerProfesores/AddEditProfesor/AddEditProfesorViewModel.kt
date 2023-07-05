@@ -35,7 +35,7 @@ class AddEditProfesorViewModel @Inject constructor(
     var seccion by mutableStateOf<Seccion?>(null)
     var genero by mutableStateOf(false)
 
-    var iconoUsuarioMain by mutableStateOf(0)
+    var iconoUsuarioMain by mutableStateOf("")
 
     fun getListGrados() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -53,11 +53,11 @@ class AddEditProfesorViewModel @Inject constructor(
     }
 
     fun validarIcono() {
-        iconoUsuarioMain = if (genero) {
+        iconoUsuarioMain = if (genero) ({
             Recursos.getMaestra()
-        } else {
+        }).toString() else ({
             Recursos.getMaestro()
-        }
+        }).toString()
     }
 
     fun getUser(id: Int) {
@@ -65,12 +65,10 @@ class AddEditProfesorViewModel @Inject constructor(
             val user = repository.getList().find { it.id == id }
             user?.let {
                 nombre = it.nombre
-                apellido = it.apellido
+                apellido = it.apellidos
                 celular = it.celular
                 correo = it.correo
                 //seccion = ""
-                genero = it.genero == "M"
-                iconoUsuarioMain = it.icono
             }
         }
     }
@@ -85,11 +83,13 @@ class AddEditProfesorViewModel @Inject constructor(
                         correo = correo,
                         clave = "12345678",
                         nombre = nombre,
-                        apellido = apellido,
+                        apellidos = apellido,
                         celular = celular,
-                        tipoUsuario = "P",
+                        tipoUsuario = 1,
                         genero = if (genero) "M" else "H",
-                        icono = iconoUsuarioMain
+                        foto = "",
+                        documento = "",
+                        id = 0
                     )
                     repository.insert(usuario)
                     val rpta = repository.getList().find { it.correo == correo }

@@ -1,79 +1,36 @@
 package com.jjmf.elementaryschool.util
 
-import com.jjmf.elementaryschool.R
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.tasks.await
 
 object Recursos {
 
+    var listAlumnas = emptyList<String>()
+    var listAlumnos = emptyList<String>()
+    var listBuhitos = emptyList<String>()
+    var listMaestros = emptyList<String>()
+    var listMaestras = emptyList<String>()
 
-    val listCursos = listOf(
-        R.drawable.curso_1,
-        R.drawable.curso_2,
-        R.drawable.curso_3,
-        R.drawable.curso_4,
-        R.drawable.curso_5,
-        R.drawable.curso_6,
-        R.drawable.curso_7,
-        R.drawable.curso_8,
-        R.drawable.curso_9,
-        R.drawable.curso_10,
-        R.drawable.curso_11,
-        R.drawable.curso_12,
-        R.drawable.curso_13,
-        R.drawable.curso_14,
-        R.drawable.curso_15,
-        R.drawable.curso_16
-    )
+    suspend fun getImagenes() {
+        val storage = FirebaseStorage.getInstance().reference
 
-    fun getCurso() = listCursos.random()
+        val imgAlumnos = storage.child("ic_alumnos").listAll().await()
+        listAlumnos = imgAlumnos.items.map { it.downloadUrl.await().toString() }
 
-    private val listBuhitos = listOf(
-        R.drawable.buho_1,
-        R.drawable.buho_2,
-        R.drawable.buho_3,
-        R.drawable.buho_4,
-        R.drawable.buho_5,
-        R.drawable.buho_6,
-        R.drawable.buho_7,
-        R.drawable.buho_8,
-        R.drawable.buho_9,
-    )
+        val imgBuhitos = storage.child("ic_buhito").listAll().await()
+        listBuhitos = imgBuhitos.items.map { it.downloadUrl.await().toString() }
 
-    fun getBuhito() = listBuhitos.random()
+        val imgMaestros = storage.child("ic_maestro").listAll().await()
+        listMaestros = imgMaestros.items.map { it.downloadUrl.await().toString() }
 
-    private val listAlumnos = listOf(
-        R.drawable.alumno_1,
-        R.drawable.alumno_2,
-        R.drawable.alumno_3,
-        R.drawable.alumno_4
-    )
+        val imgMaestras = storage.child("ic_maestra").listAll().await()
+        listMaestras = imgMaestras.items.map { it.downloadUrl.await().toString() }
+    }
 
-    fun getAlumno() = listAlumnos.random()
-
-    val listAlumnas = listOf(
-        R.drawable.alumna_1,
-        R.drawable.alumna_2,
-        R.drawable.alumna_3,
-        R.drawable.alumna_4,
-        R.drawable.alumna_5,
-    )
-    fun getAlumna() = listAlumnas.random()
-
-    val listMaestros = listOf(
-        R.drawable.maestro_1,
-        R.drawable.maestro_2,
-        R.drawable.maestro_3,
-        R.drawable.maestro_4,
-        R.drawable.maestro_5
-    )
-
-    fun getMaestro() = listMaestros.random()
-
-    val listMaestras = listOf(
-        R.drawable.maestra_1,
-        R.drawable.maestra_2,
-        R.drawable.maestra_3,
-        R.drawable.maestra_4
-    )
-    fun getMaestra() = listMaestras.random()
+    fun getAlumna() = listAlumnas.randomOrNull()
+    fun getAlumno() = listAlumnos.randomOrNull()
+    fun getBuhito() = listBuhitos.randomOrNull()
+    fun getMaestro() = listMaestros.randomOrNull()
+    fun getMaestra() = listMaestras.randomOrNull()
 
 }

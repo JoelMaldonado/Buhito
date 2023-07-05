@@ -44,8 +44,13 @@ fun SaveCursoScreen(
         }
     }
 
+    LaunchedEffect(key1 = Unit){
+        viewModel.getImagenesCursos()
+    }
+
     if (viewModel.alertSeleccionarIcono) {
         AlertSeleccionarIconoCurso(
+            listCursos = viewModel.listCursos,
             close = {
                 viewModel.alertSeleccionarIcono = false
             },

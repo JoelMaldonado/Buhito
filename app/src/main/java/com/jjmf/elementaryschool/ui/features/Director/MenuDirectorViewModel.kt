@@ -10,7 +10,6 @@ class MenuDirectorViewModel @Inject constructor(
 ) :ViewModel(){
 
     val icProfesor = Recursos.getMaestro()
-    val icCurso = Recursos.getCurso()
     val icGrado = Recursos.getBuhito()
 
 }

@@ -71,7 +71,7 @@ fun CursoMaestroScreen(
                 }
                 items(viewModel.listCursos){
                     ItemMaestro(
-                        img = it.icono,
+                        img = it.img,
                         titulo = it.detalle,
                         descrip = "20/04/2023",
                         click = {},

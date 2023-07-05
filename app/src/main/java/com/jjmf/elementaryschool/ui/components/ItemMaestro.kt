@@ -1,10 +1,7 @@
 package com.jjmf.elementaryschool.ui.components
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QuestionMark
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -29,20 +27,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import com.jjmf.elementaryschool.R
 import com.jjmf.elementaryschool.ui.theme.ColorT1
+import com.jjmf.elementaryschool.util.Recursos
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemMaestro(
-    @DrawableRes img: Int,
-    init:String? = null,
+    img: String?,
+    init: String? = null,
     titulo: String,
     descrip: String,
-    click:(()->Unit)? = null,
-    onlongClick:(()->Unit)? = null,
+    click: (() -> Unit)? = null,
+    onlongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
-    size:Dp = 70.dp
+    size: Dp = 70.dp,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -66,7 +68,7 @@ fun ItemMaestro(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            if (init!=null){
+            if (init != null) {
 
                 Box(
                     modifier = Modifier
@@ -90,9 +92,12 @@ fun ItemMaestro(
                         )
                     }
                 }
-            }else{
-                Image(
-                    painter = painterResource(id = img),
+            } else {
+                SubcomposeAsyncImage(
+                    model = img,
+                    loading = {
+                        CircularProgressIndicator()
+                    },
                     contentDescription = null,
                     modifier = Modifier.size(70.dp)
                 )

@@ -30,6 +30,7 @@ import com.jjmf.elementaryschool.ui.components.ItemMaestro
 import com.jjmf.elementaryschool.ui.components.Top
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
+import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun VerProfesoresScreen(
@@ -81,9 +82,9 @@ fun VerProfesoresScreen(
                 }
                 items(viewModel.listUsuarios) {
                     ItemMaestro(
-                        img = it.icono,
+                        img = Recursos.getAlumno(),
                         titulo = it.nombre,
-                        descrip = if (it.tipoUsuario == "A") "Alumno" else "Profesor",
+                        descrip = if (it.tipoUsuario == 1) "Alumno" else "Profesor",
                         click = {
                             toEditarProfesor(it.id)
                         },

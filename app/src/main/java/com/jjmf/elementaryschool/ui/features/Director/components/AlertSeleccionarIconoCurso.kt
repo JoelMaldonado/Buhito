@@ -24,12 +24,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
+import com.jjmf.elementaryschool.R
 import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun AlertSeleccionarIconoCurso(
+    listCursos:List<String>,
     close: () -> Unit,
-    click: (Int) -> Unit,
+    click: (String) -> Unit,
 ) {
 
 
@@ -51,9 +53,10 @@ fun AlertSeleccionarIconoCurso(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(Recursos.listCursos) {
-                    Image(
-                        painter = painterResource(id = it),
+                items(listCursos) {
+                    AsyncImage(
+                        model = it,
+                        error = painterResource(id = R.drawable.curso_1),
                         contentDescription = null,
                         modifier = Modifier
                             .size(60.dp)

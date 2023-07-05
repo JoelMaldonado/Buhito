@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
 import com.jjmf.elementaryschool.util.Recursos
@@ -33,7 +34,7 @@ import com.jjmf.elementaryschool.util.Recursos
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardProfesor(
-    foto: Int,
+    foto: String,
     nombre: String,
     descrip: String,
     click: () -> Unit,
@@ -58,8 +59,8 @@ fun CardProfesor(
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painterResource(id = foto),
+            AsyncImage(
+                model = foto,
                 contentDescription = null,
                 modifier = Modifier.size(50.dp)
             )

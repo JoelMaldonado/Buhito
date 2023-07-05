@@ -21,6 +21,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,7 +47,7 @@ import com.jjmf.elementaryschool.ui.theme.ColorS1
 
 @Composable
 fun LoginScreen(
-    toMenuDirector: (String) -> Unit,
+    toMenuDirector: (Int) -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
 
@@ -56,6 +57,7 @@ fun LoginScreen(
         Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         viewModel.error = null
     }
+
     viewModel.toMenu?.let {
         LaunchedEffect(key1 = Unit) {
             toMenuDirector(it)
@@ -93,10 +95,7 @@ fun LoginScreen(
                     painter = painterResource(id = R.drawable.ic_buho),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(120.dp)
-                        .clickable {
-                            viewModel.insertarUsuarioTest()
-                        },
+                        .size(120.dp),
                     tint = ColorS1
                 )
 
@@ -152,9 +151,17 @@ fun LoginScreen(
                 onClick = viewModel::signIn,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = ColorS1
-                )
+                ),
+                enabled = !viewModel.loader
             ) {
-                Text(text = "Ingresar", fontSize = 18.sp)
+                if (viewModel.loader){
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(25.dp)
+                    )
+                }else{
+                    Text(text = "Ingresar", fontSize = 18.sp)
+                }
             }
 
             Text(

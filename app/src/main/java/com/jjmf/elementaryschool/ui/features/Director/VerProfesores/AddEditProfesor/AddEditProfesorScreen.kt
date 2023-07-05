@@ -76,7 +76,7 @@ fun AddEditProfesorScreen(
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.iconoUsuarioMain = Recursos.getMaestro()
+        viewModel.iconoUsuarioMain = Recursos.getMaestro().toString()
         viewModel.getListGrados()
         id?.let {
             viewModel.getUser(it)

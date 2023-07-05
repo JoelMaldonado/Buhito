@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "315504695336",
+    "project_id": "buhito-8e00a",
+    "storage_bucket": "buhito-8e00a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315504695336:android:1182c202b59041a67e7d1d",
+        "android_client_info": {
+          "package_name": "com.jjmf.elementaryschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315504695336-iei6uuad0fn09420foe5n0lpu23lt0r3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs8gKzn0rTsTAIjGWvo61V0WFQIUoA5J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315504695336-iei6uuad0fn09420foe5n0lpu23lt0r3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
