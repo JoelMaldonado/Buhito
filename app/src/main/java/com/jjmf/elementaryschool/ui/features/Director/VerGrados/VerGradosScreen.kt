@@ -15,7 +15,6 @@ import com.jjmf.elementaryschool.model.Seccion
 import com.jjmf.elementaryschool.ui.components.CajaBuscar
 import com.jjmf.elementaryschool.ui.components.ItemMaestro
 import com.jjmf.elementaryschool.ui.components.Top
-import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun VerGradosScreen(
@@ -53,7 +52,7 @@ fun VerGradosScreen(
         ) {
 
             ItemMaestro(
-                img = Recursos.getBuhito(),
+                img = "",
                 init = "1°",
                 titulo = "Grado",
                 descrip = getCant(viewModel.list.filter { it.grado == 1 }),
@@ -63,7 +62,7 @@ fun VerGradosScreen(
                 onlongClick = {}
             )
             ItemMaestro(
-                img = Recursos.getBuhito(),
+                img = "",
                 init = "2°",
                 titulo = "Grado",
                 descrip = getCant(viewModel.list.filter { it.grado == 2 }),
@@ -73,7 +72,7 @@ fun VerGradosScreen(
                 onlongClick = {}
             )
             ItemMaestro(
-                img = Recursos.getBuhito(),
+                img = "",
                 init = "3°",
                 titulo = "Grado",
                 descrip = getCant(viewModel.list.filter { it.grado == 3 }),
@@ -83,7 +82,7 @@ fun VerGradosScreen(
                 onlongClick = {}
             )
             ItemMaestro(
-                img = Recursos.getBuhito(),
+                img = "",
                 init = "4°",
                 titulo = "Grado",
                 descrip = getCant(viewModel.list.filter { it.grado == 4 }),
@@ -93,7 +92,7 @@ fun VerGradosScreen(
                 onlongClick = {}
             )
             ItemMaestro(
-                img = Recursos.getBuhito(),
+                img = "",
                 init = "5°",
                 titulo = "Grado",
                 descrip = getCant(viewModel.list.filter { it.grado == 5 }),
@@ -103,7 +102,7 @@ fun VerGradosScreen(
                 onlongClick = {}
             )
             ItemMaestro(
-                img = Recursos.getBuhito(),
+                img = "",
                 init = "6°",
                 titulo = "Grado",
                 descrip = getCant(viewModel.list.filter { it.grado == 6 }),

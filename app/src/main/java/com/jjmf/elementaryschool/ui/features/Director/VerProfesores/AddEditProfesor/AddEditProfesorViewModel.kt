@@ -9,7 +9,6 @@ import com.jjmf.elementaryschool.data.repository.SeccionRepository
 import com.jjmf.elementaryschool.data.repository.UsuarioRepository
 import com.jjmf.elementaryschool.model.Seccion
 import com.jjmf.elementaryschool.model.Usuario
-import com.jjmf.elementaryschool.util.Recursos
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,9 +53,13 @@ class AddEditProfesorViewModel @Inject constructor(
 
     fun validarIcono() {
         iconoUsuarioMain = if (genero) ({
-            Recursos.getMaestra()
+        //TODO buscar imagen maestra
+            ""
+        //Recursos.getMaestra()
         }).toString() else ({
-            Recursos.getMaestro()
+            //TODO buscar imagen maestra
+            //Recursos.getMaestro()
+            ""
         }).toString()
     }
 

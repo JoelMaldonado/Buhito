@@ -9,7 +9,6 @@ import com.jjmf.elementaryschool.core.EstadosResult
 import com.jjmf.elementaryschool.data.repository.CursoRepository
 import com.jjmf.elementaryschool.data.usecase.Imagenes
 import com.jjmf.elementaryschool.model.Curso
-import com.jjmf.elementaryschool.util.Recursos
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

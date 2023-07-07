@@ -15,15 +15,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.jjmf.elementaryschool.R
 import com.jjmf.elementaryschool.ui.components.CardMenu
-import com.jjmf.elementaryschool.ui.navigation.Rutas
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
-import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun MenuDirectorScreen(

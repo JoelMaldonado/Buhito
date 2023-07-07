@@ -22,16 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
-import com.jjmf.elementaryschool.R
 import com.jjmf.elementaryschool.ui.theme.ColorT1
-import com.jjmf.elementaryschool.util.Recursos
 
 
 @OptIn(ExperimentalFoundationApi::class)

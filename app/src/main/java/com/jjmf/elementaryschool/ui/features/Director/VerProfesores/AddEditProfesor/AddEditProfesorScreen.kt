@@ -45,7 +45,6 @@ import com.jjmf.elementaryschool.ui.theme.ColorHembra
 import com.jjmf.elementaryschool.ui.theme.ColorMacho
 import com.jjmf.elementaryschool.ui.theme.ColorP1
 import com.jjmf.elementaryschool.ui.theme.ColorS1
-import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun AddEditProfesorScreen(
@@ -76,7 +75,7 @@ fun AddEditProfesorScreen(
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.iconoUsuarioMain = Recursos.getMaestro().toString()
+        viewModel.iconoUsuarioMain = ""
         viewModel.getListGrados()
         id?.let {
             viewModel.getUser(it)

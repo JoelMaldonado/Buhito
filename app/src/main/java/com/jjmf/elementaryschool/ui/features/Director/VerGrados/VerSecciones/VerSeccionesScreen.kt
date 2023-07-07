@@ -31,7 +31,6 @@ import com.jjmf.elementaryschool.ui.components.ItemMaestro
 import com.jjmf.elementaryschool.ui.components.Top
 import com.jjmf.elementaryschool.ui.features.Director.VerProfesores.alertEliminar
 import com.jjmf.elementaryschool.ui.theme.ColorS1
-import com.jjmf.elementaryschool.util.Recursos
 import com.jjmf.elementaryschool.util.show
 
 @Composable
@@ -84,7 +83,7 @@ fun VerSeccionesScreen(
             LazyColumn(Modifier.fillMaxSize()){
                 items(list){
                     ItemMaestro(
-                        img = Recursos.getBuhito(),
+                        img = "",
                         init = "${it.grado}${it.detalle}",
                         titulo = "Grado ${it.grado} - Seccion ${it.detalle}",
                         descrip = "Sin profesor asignado",

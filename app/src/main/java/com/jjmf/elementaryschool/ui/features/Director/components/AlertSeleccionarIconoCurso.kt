@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import com.jjmf.elementaryschool.R
-import com.jjmf.elementaryschool.util.Recursos
 
 @Composable
 fun AlertSeleccionarIconoCurso(
