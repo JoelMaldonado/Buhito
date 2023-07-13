@@ -1,7 +1,7 @@
 package com.jjmf.elementaryschool.data.repository
 
 import com.jjmf.elementaryschool.core.EstadosResult
-import com.jjmf.elementaryschool.data.api.ApiInterface
+import com.jjmf.elementaryschool.data.interfaces.ApiInterface
 import com.jjmf.elementaryschool.model.Usuario
 import com.jjmf.elementaryschool.model.Wrapper
 import kotlinx.coroutines.flow.Flow

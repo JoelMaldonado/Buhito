@@ -1,4 +1,4 @@
-package com.jjmf.elementaryschool.data.api
+package com.jjmf.elementaryschool.data.interfaces
 
 import com.jjmf.elementaryschool.model.Curso
 import com.jjmf.elementaryschool.model.Usuario
@@ -11,7 +11,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiInterface {
-
 
     @GET("api/usuario")
     suspend fun getListUser(): Response<Wrapper<List<Usuario>>>

@@ -1,6 +1,6 @@
 package com.jjmf.elementaryschool.data.module
 
-import com.jjmf.elementaryschool.data.api.ApiInterface
+import com.jjmf.elementaryschool.data.interfaces.ApiInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

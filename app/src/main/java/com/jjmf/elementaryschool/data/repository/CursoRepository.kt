@@ -1,10 +1,8 @@
 package com.jjmf.elementaryschool.data.repository
 
 import com.jjmf.elementaryschool.core.EstadosResult
-import com.jjmf.elementaryschool.data.api.ApiInterface
-import com.jjmf.elementaryschool.data.database.AppDataBase
+import com.jjmf.elementaryschool.data.interfaces.ApiInterface
 import com.jjmf.elementaryschool.model.Curso
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface CursoRepository {
